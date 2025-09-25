@@ -1,3 +1,5 @@
+import 'package:bloc_clean_arcitecture/config/routes/routes.dart';
+import 'package:bloc_clean_arcitecture/config/routes/routes_name.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,6 +18,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
+      initialRoute: RoutesName.splashScreen,
+      onGenerateRoute: Routes.generateRoute,
     );
   }
 }
