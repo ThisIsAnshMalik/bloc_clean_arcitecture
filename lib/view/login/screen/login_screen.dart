@@ -1,3 +1,4 @@
+import 'package:bloc_clean_arcitecture/bloc/login_bloc/login_bloc.dart';
 import 'package:bloc_clean_arcitecture/view/login/widgets/email_textfield.dart';
 import 'package:bloc_clean_arcitecture/view/login/widgets/login_button.dart';
 import 'package:bloc_clean_arcitecture/view/login/widgets/password_textfield.dart';
@@ -11,10 +12,16 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  late LoginBloc _loginBloc;
   final emailFocusNode = FocusNode();
   final passwordFocusNode = FocusNode();
-
   final _formkey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _loginBloc = LoginBloc();
+  }
 
   @override
   Widget build(BuildContext context) {

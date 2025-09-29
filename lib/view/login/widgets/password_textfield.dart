@@ -1,4 +1,6 @@
+import 'package:bloc_clean_arcitecture/bloc/login_bloc/login_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PasswordTextField extends StatelessWidget {
   const PasswordTextField({super.key, required this.passwordFocusNode});
@@ -7,22 +9,28 @@ class PasswordTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      keyboardType: TextInputType.emailAddress,
-      focusNode: passwordFocusNode,
-      obscureText: true,
-      decoration: const InputDecoration(
-        hintText: 'Password',
-        border: OutlineInputBorder(),
-      ),
-      onChanged: (value) {},
-      validator: (value) {
-        if (value!.isEmpty) {
-          return 'Enter password';
-        }
-        return null;
+    return BlocBuilder<LoginBloc, LoginState>(
+      buildWhen: (previous, current) => current.password != previous.password,
+      builder: (context, state) {
+        return TextFormField(
+          keyboardType: TextInputType.emailAddress,
+          focusNode: passwordFocusNode,
+          decoration: const InputDecoration(
+            hintText: 'Password',
+            border: OutlineInputBorder(),
+          ),
+          onChanged: (value) {
+            context.read<LoginBloc>().add(PasswordChanged(password: value));
+          },
+          validator: (value) {
+            if (value!.isEmpty) {
+              return 'Enter Password';
+            }
+            return null;
+          },
+          onFieldSubmitted: (value) {},
+        );
       },
-      onFieldSubmitted: (value) {},
     );
   }
 }
